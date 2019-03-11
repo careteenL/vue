@@ -1,0 +1,22 @@
+{
+  "name": "@careteen/vue",
+  "version": "0.1.0",
+  "description": "Learn and copy vue",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/careteenL/vue.git"
+  },
+  "keywords": [
+    "vue"
+  ],
+  "author": "careteenL <15074806497@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/careteenL/vue/issues"
+  },
+  "homepage": "https://github.com/careteenL/vue#readme"
+}
