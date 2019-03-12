@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MVVM例子</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="person.name">
+    <div>{{ person.name }}</div>
+    <div>{{ person.age }}</div>
+    <div>lanlan</div>
+  </div>
+  <!-- 使用原生vue -->
+  <!-- <script src="../node_modules/vue/dist/vue.js"></script> -->
+  <!-- 自己编写vue -->
+  <script src="../src/compileUtil.js"></script>
+  <script src="../src/compile.js"></script>
+  <script src="../src/observer.js"></script>
+  <script src="../src/index.js"></script>
+
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        person: {
+          name: 'careteen',
+          age: '23'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/careteenL/vue/issues"
   },
-  "homepage": "https://github.com/careteenL/vue#readme"
+  "homepage": "https://github.com/careteenL/vue#readme",
+  "dependencies": {
+    "vue": "^2.6.8"
+  }
 }
