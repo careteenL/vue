@@ -1,37 +1,24 @@
-# vue
-Learn and copy vue
+# vue3.0
 
-## 什么是MVVM
+学习并实现[vue3.0](https://github.com/vuejs/vue-next)
 
-![what-is-mvvm](./assets/what-is-mvvm.png)
+## VUE2.0实现思路
 
-一句话总结：操作数据，就是操作视图，就是操作`DOM`（所以无需操作`DOM`）
-
-- [什么是MVVM](https://segmentfault.com/a/1190000010756245)
-
-## MVVM分析
-
-![analyse-mvvm](./assets/analyse-mvvm.png)
-
-## 思路
-
-- 数据通过指令渲染到模板
-  - `v-model`
-  - `{{}}`
-  - ...
 - 数据劫持
-  - Object.definePropety 
-  - Proxy
-- 观察者模式
-  - 实现已数据驱动
-- 数据双向绑定
-  - `input setValue`
-- 数据代理
-  - `this.xxx => this.$data.xxx`
-- `computed`
-- `methods`
-- ...
+  - 使用`Object.defineProperty`和**递归**实现。
+  - 不足：当数据层级较深时：递归次数会变多，可能存在内存泄露，进而影响性能。
+- 处理数组
+  - 需要重写**数组**原型上的方法（原地修改的方法：`push/pop/sort/reverse/splice`）
+  - 使用`AOP`的思想重写，在执行原方法的同时，执行更新视图的操作函数
+- 依赖收集
+  - 在编译阶段，模板生成的是一个字符串，
+  - 当模板中有用到某个变量时，会使用正则去匹配这个双大括号并用`this.$data`去替换对应的变量
+    - 与此同时，将这个变量使用`watcher`进行监听，
+      - 当页面呈现时会取到这个值，于是触发`数据劫持`部分的`getter`将其放入发布订阅机制的`deps`依赖中，页面可能多处调用，因此使用队列维护
+      - 当在代码中设置这个值时，会触发`数据劫持`部分的`setter`将执行这个`发布订阅实例`的`notify`发布方法去调用每个`watcher`的`update`更新方法去更新视图
+      - `watcher`的`update`更新方法就是操作`dom`
+## VUE3.0实现思路
 
-- todo
-  - 生命周期
-  - 完善指令
+- 使用`Proxy`实现数据劫持
+
+## 总结
