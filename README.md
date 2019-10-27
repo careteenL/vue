@@ -26,6 +26,8 @@
   
 ## VUE3.0实现思路
 
+> 建议先看单元测试`test tell everything`，知道具体功能后，思考如果是自己会如何实现，然后再看源码。
+
 - 数据劫持
   - 使用`Proxy`和`Reflect`实现
     - 优势
@@ -44,5 +46,13 @@
   - 当调用原型上原地修改的方法(`push/pop/sort/reverse/splice`)时，会先操作数据，然后更改数组的`length`属性（这是无意义的修改，不应该再次渲染视图），所以屏蔽的方式是将新值和旧值对比，如果没修改且数组长度没变化就不去渲染视图
 - 依赖收集
   - ![track](./assets/track.png)
+  - 利用js是单线程的特性
+    - 目标：在调用`effect`方法时，传参是一个函数，首先会立即执行一次，当函数内部的`reactive`数据变化时，会再次触发这个函数。
+    - 实现：在`effect`内部会先执行一次传参的函数，由于js单线程特性，会执行其中代码，
+      - 若含有`reactive`的数据在取值时会走`Proxy`的`getter`，此时去对依赖进行收集，收集的方式是维护一个`WeackMap`，其键为原对象，值为一个`Map`去存放原对象上的每个`key`，这个`Map`的键为原对象的`key`，值为一个`Set`去存放所有依赖的`effect`的传参函数；
+      - 当在改变已`reactive`的对象的某个键值时，会触发`Proxy`的`setter`，此时直接对上面依赖收集时维护的`WeackMap`直接取值，去遍历执行对应`effect`函数。
+  - 几个问题
+    - 为什么使用`WeakMap`而不直接使用`Map`？
+      - 移步[Why WeakMap](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
 
 ## 总结
