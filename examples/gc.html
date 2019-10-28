@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>GC</title>
+</head>
+<body>
+  <script>
+    function Person (name) {
+      this.name = name
+    }
+    function PersonFactory (name) {
+      let none = 1 // 会被销毁
+      let p = new Person(name) // 不会被销毁
+      return function () {
+        console.log(p)
+        // p = null // 写在这儿也不会被GC
+      }
+    }
+    let p1 = new PersonFactory('careteen')
+    p1()
+  </script>
+</body>
+</html>
