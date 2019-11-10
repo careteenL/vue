@@ -4,7 +4,9 @@
   "description": "Learn and copy vue",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:vdom": "webpack --mode=development --entry=./src/vdom-test.js --outputPath=./dist --outputFilename=main.js",
+    "dev:vdom": "webpack-dev-server --mode=development --contentBase=./dist --entry=./src/vdom-test.js --outputPath=./dist --outputFilename=main.js",
+    "test:vdom": "npm run build:vdom && npm run dev:vdom"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,10 @@
   "homepage": "https://github.com/careteenL/vue#readme",
   "dependencies": {
     "vue": "^2.6.8"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   }
 }
