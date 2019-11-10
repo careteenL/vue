@@ -3,11 +3,27 @@
 学习并实现[vue3.0](https://github.com/vuejs/vue-next)
 
 ## 目录
-- [VUE2.0实现思路](#VUE2.0实现思路)
-- [VUE3.0实现思路](#VUE3.0实现思路)
+- [TODO](#TODO)
+- [VUE2实现思路](#VUE2实现思路)
+- [VUE3实现思路](#VUE3实现思路)
 - [DOM-DIFF](#DOM-DIFF)
 
-## VUE2.0实现思路
+## TODO
+
+- [x] 实现`{{xxx}}`
+- [x] 实现`v-model`
+- [x] 实现`v-text`
+- [x] 实现`v-html`
+- [ ] 实现`v-if`
+- [ ] 实现`v-show`
+- [ ] 实现`v-for`
+- [ ] 实现`computed`
+- [ ] 实现`watch`
+- [ ] 实现`life cycle`
+- [x] 实现`VNode`
+- [x] 实现`DOM Diff`
+
+## VUE2实现思路
 
 - 数据劫持
   - 使用`Object.defineProperty`和**递归**实现。
@@ -29,7 +45,7 @@
 - 代理`$data/computed/watch/methods`
   - 使用`Object.defineProperty`的`getter`实现取值代理
   
-## VUE3.0实现思路
+## VUE3实现思路
 
 > 建议先看单元测试`test tell everything`，知道具体功能后，思考如果是自己会如何实现，然后再看源码。
 
