@@ -3,9 +3,9 @@
 学习并实现[vue3.0](https://github.com/vuejs/vue-next)
 
 ## 目录
-- [VUE2.0实现思路](VUE2.0实现思路)
-- [VUE3.0实现思路](VUE3.0实现思路)
-- [DOM-DIFF](DOM-DIFF)
+- [VUE2.0实现思路](#VUE2.0实现思路)
+- [VUE3.0实现思路](#VUE3.0实现思路)
+- [DOM-DIFF](#DOM-DIFF)
 
 ## VUE2.0实现思路
 
