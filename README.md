@@ -7,6 +7,7 @@
 - [VUE2实现思路](#VUE2实现思路)
 - [VUE3实现思路](#VUE3实现思路)
 - [DOM-DIFF](#DOM-DIFF)
+- [引用](#引用)
 
 ## TODO
 
@@ -98,3 +99,7 @@ npm run test:vdom
 核心代码存放在[vdom](./src/vdom)
 
 ## 总结
+
+## 引用
+
+- [vue-2.5.17-源码解读](https://github.com/careteenL/vue-analysis)
