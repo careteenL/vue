@@ -1,0 +1,92 @@
+# Vue
+
+## Vue
+
+- 发展历程
+
+  - 1.x
+  - 2.x
+  - 3.x
+
+- pnpm 代替 lerna 实现 monorepo 仓库管理
+  - 使用？优点？
+- dev esbuild, build rollup？
+  - iife
+  - umd
+  - esModule
+    - esm-bundler 不会将所有的模块打包到一起，在工程化中使用
+    - esm-browser 会将所有的模块打包到一起， 在 <script type="module"></script> 中使用
+  - cjs
+- 响应式原理
+  - vue2
+    - optionalApi
+  - vue3
+    - compositionApi
+- reactive
+  - proxy 只对对象
+  - shallowReactive
+  - isReactive
+- ref
+  - defineProperty 可对非对象
+  - shallowRef
+  - isRef
+  - toRef
+  - toRefs
+  - proxyRefs 将 ref 转换成代理方式来访问，主要在模板中使用
+- readonly
+  - shallowReadonly 丧失收集能力
+- toRaw 通过代理后的结果返回原值
+  - markRaw
+- effect
+  - 渲染 computed watch watchEffect 都基于 effect 实现
+- watch
+  - 数据变化后调用回调
+  - watchEffect 就是 effect
+- computed
+  - 有缓存 dirty
+- 依赖收集
+  - map 映射表维护数据和 effect 的关系
+- 触发更新
+  - 通过属性触发对应的 effect 来执行
+- 依赖清理
+  - stop 停止依赖收集
+- 数组处理
+  - track 依赖收集
+  - toRaw 转原对象
+- runtime-dom
+  - render
+  - createRenderer
+  - nodeOps
+  - patchProp
+    - class
+    - style
+      - 两次循环 加和删
+    - event
+      - 先移除再绑定？no
+      - 换绑事件
+      - fn = (e) => fn.value(e) fn.value = nextValue
+    - otherAttributes
+  - 封装的方法提供给 runtime-core 使用
+- runtime-core
+  - 不依赖平台
+  - 虚拟 dom
+    - h
+    - createVNode
+  - patch
+    - 递归创建元素、属性、儿子
+  - diff 算法
+    - 平级比较 全量比对
+      - 前后不是统一个节点，删除老的换新的
+      - 前后是同一个节点，复用节点，更新属性儿子
+      - 儿子更新有九种（ null、节点、数组 \* 3）方式（核心：双方儿子都是列表）
+      - 同序列比较进行优化 sync from start，sync from end（挂载和卸载）
+      - 确定两个序列中变化的部分
+        - 根据新节点创建映射表，用老的节点去找，如果新的没有则删除，有的就复用比较属性和儿子
+    - 最长递增子序列优化
+- vue 包含
+  - 编译时（compiler-core，compiler-dom）
+    - 应用主要是.vue 文件 template 转成 render 函数
+    - 耗费性能，放在工程化中进行转换
+  - 运行时（runtime-core，runtime-dom）reactivity
+
+### 资料
