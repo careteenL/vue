@@ -53,6 +53,11 @@
 - 数组处理
   - track 依赖收集
   - toRaw 转原对象
+- vue 包含
+  - 编译时（compiler-core，compiler-dom）
+    - 应用主要是.vue 文件 template 转成 render 函数
+    - 耗费性能，放在工程化中进行转换
+  - 运行时（runtime-core，runtime-dom）reactivity
 - runtime-dom
   - render
   - createRenderer
@@ -89,10 +94,30 @@
           - 3 倒序追踪 => 根据 2 的结果 修正 1 的结果的索引 得出正确的最长递增子序列的索引列表
         - 得出最长递增子序列的部分不用更新节点，其他节点则 insert 到对应节点之前
     - 比 react 考虑更加完善，性能更高
-- vue 包含
-  - 编译时（compiler-core，compiler-dom）
-    - 应用主要是.vue 文件 template 转成 render 函数
-    - 耗费性能，放在工程化中进行转换
-  - 运行时（runtime-core，runtime-dom）reactivity
+  - 组件更新
+  - setup
+  - emit
+  - slot
+  - 组件生命周期
+  - 模板编译优化
+    - 靶向更新优化
+      - 标记哪些是动态节点
+      - 下次更新时只更新动态节点
+      - v-if v-for 是不稳定序列，会走全量更新
+        - v-for 时若长度固定，则也会加入靶向更新
+    - 静态提升
+    - 预字符串化
+    - 缓存函数
+- compiler-core
+  - 有限状态机
+  - vue2 直接正则匹配属性
+  - vue3 采用递归的方式取属性，取一个删一个
+  - 处理空格、文本、元素<div></div>、表达式{{}}
+  - parser
+  - transform
+  - generate
+- compiler-dom
 
 ### 资料
+
+- https://github.com/careteenL/vue3-source
