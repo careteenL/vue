@@ -117,7 +117,78 @@
   - transform
   - generate
 - compiler-dom
+- transition
+- 异步组件
+- teleport
+- provide inject
+  - 解决跨级组件通信
+  - 原型链的方式实现 Object.create()
+- keep alive
+  - 核心是缓存 subTree 节点实例到内存中，在卸载时存储，返回时处理挂载重新赋值
+  - lru
+  - include
+  - exclude
+- effectScope
+  - pinia 中 dispose 有使用到
 
 ### 资料
 
 - https://github.com/careteenL/vue3-source
+
+## pinio
+
+- 替代 vuex
+- options 用法
+- composition 用法
+- 实现
+  - 是一个 vue 插件，提供一个对象中包含 install 方法，参数能拿到 app 实例
+
+## vue-router
+
+- 使用
+- hash 不会刷新页面
+- history 刷新页面会重新请求服务器
+- 3.x
+  - 使用 class 实现
+  - hash 基于 onhashchage
+  - history 基于 onpopstate
+- 4.x
+  - 使用函数式编程实现
+  - hash 模式基于 history api 实现，因为不考虑 ie 兼容性
+    - history api
+    - 基于 onpopstate 实现 listen 监听路由前进后退
+    - location
+    - state
+    - push
+    - replace
+    - pushWithRedirect
+  - createRouter 提供 install 方法， 是插件的入口
+  - 路由拍平，{ path, parent, component, children }
+  - 路由动态添加 addRoute
+  - RouterLink
+  - RouterView
+  - 路由守卫
+    - 全局守卫
+      - beforeEach
+      - beforeResolve
+      - afterEach
+    - 路由守卫
+      - beforeEnter
+    - 组件守卫
+      - beforeRouteLeave
+      - beforeRouteUpdate
+      - beforeRouteEnter
+    - 串行执行 promise reduce 实现
+    - 完整的导航解析流程
+      - 导航被触发。
+      - 在失活的组件里调用 beforeRouteLeave 守卫。
+      - 调用全局的 beforeEach 守卫。
+      - 在重用的组件里调用 beforeRouteUpdate 守卫(2.2+)。
+      - 在路由配置里调用 beforeEnter
+      - 解析异步路由组件。
+      - 在被激活的组件里调用 beforeRouteEnter
+      - 调用全局的 beforeResolve 守卫(2.5+)。
+      - 导航被确认。
+      - 调用全局的 afterEach 钩子。
+      - 触发 DOM 更新。
+      - 调用 beforeRouteEnter 守卫中传给 next 的回调函数，创建好的组件实例会作为回调函数的参数- 传入。
