@@ -200,13 +200,16 @@
 - 服务端返回后，引入 client.bundle.js 进行 hydrate
   - 采用 vue-ssr-renderer 的 client 和 server 插件，将产物进行关联，而自动注入
 - 处理样式
+  - vue-style-loader
   - 在 node 端 ctx.body 赋值时，采用 promise 的方式获取到 renderToString 后 resolve 的方式，保证 css 能正确获取到
 - 处理路由 vue-router
+  - 导出的是函数，每个用户访问时都执行成不同实例
   - 解决页面刷新页面不存在问题
     - 在 node 服务端 renderToString 时可以传当前 ctx.url 给服务端入口
     - 入口处先 push 当前 url 保证路由正确
     - 且会判断当前 url 是否在 matched 中存在，不存在则 404 处理
 - 处理 vuex
+  - 导出的是函数，每个用户访问时都执行成不同实例
   - asyncData（nuxt 中定义的这个名） 只在服务端中运行
   - 把 store.state 挂载到 server 的 context.state 中
   - 浏览器执行 store 时，将服务端设置的最新状态，替换掉客户端的状态
