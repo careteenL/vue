@@ -125,7 +125,7 @@
   - 原型链的方式实现 Object.create()
 - keep alive
   - 核心是缓存 subTree 节点实例到内存中，在卸载时存储，返回时处理挂载重新赋值
-  - lru
+  - lru least recently usage 最近最少使用
   - include
   - exclude
 - effectScope
@@ -210,3 +210,41 @@
   - asyncData（nuxt 中定义的这个名） 只在服务端中运行
   - 把 store.state 挂载到 server 的 context.state 中
   - 浏览器执行 store 时，将服务端设置的最新状态，替换掉客户端的状态
+
+## nuxtjs
+
+## mpvue to uniapp
+
+- 微信小程序架构
+  - 双线程架构
+    - 数据层 渲染线程：wxml、wxss
+    - 逻辑层 js 线程：js
+  - 无 dom 节点
+- mpvue 原理
+  - 将 vue 实例和 wx 页面实例做关联
+  - fork vue 在编译时和运行时做修改
+  - 编译时：将 vue 代码转换为小程序 dsl
+  - 运行时：因为 wx 无 dom，所以将数据更新用 wx.setData 进行数据更新，还包括生命周期、事件处理
+- uniapp 原理
+  - 参考 mpvue
+  - 小程序自定义组件
+
+### 资料
+
+- [小程序项目框架迁移实践](https://mp.weixin.qq.com/s?__biz=MzU3NTY3MTQzMg==&mid=2247528323&idx=1&sn=ba847bc6e073f21d851fc8c88ab9c81a&chksm=fd1db264ca6a3b7235fd9cb34d3b6715a0f8be79b56ad03df7cd71155337c1fd38fb732043a5&scene=21#wechat_redirect)
+
+## vue-loader
+
+- 使用
+  - vue-loader
+  - VueLoaderPlugin
+- 实现
+  - 借助 vue/compiler-sfc 编译 template、script、style
+  - 在 vue-loader 之前再加入一个 loader 处理成 'App.vue?vue&type=script&scoped=true&id=hash'
+  - 在 css-loader 后面加入一个 stylePostLoader，当开启 scoped 时，给 css 选择器和 template 的节点属性增加 data-v-scopeId，保证 css scoped 特性
+  - VueLoaderPlugin 的作用就主要是在合适实际新增 loader
+  - pitch 一系列规则，前置、普通、行内、后置，可以加!!表示只执行行内的 loader
+
+### 资料
+
+- [webpack Loader 执行机制解析](https://juejin.cn/post/7238814783597953080)
