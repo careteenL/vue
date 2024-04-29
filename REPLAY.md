@@ -133,7 +133,8 @@
 
 ### 资料
 
-- https://github.com/careteenL/vue3-source
+- [Vue3 源码实现](https://github.com/careteenL/vue3-source)
+- [Vue3 除了 keep-alive，还有哪些页面缓存的实现方案](https://mp.weixin.qq.com/s/kq2j0G286ndMor1tjcELpg)
 
 ## pinio
 
@@ -231,6 +232,11 @@
 - uniapp 原理
   - 参考 mpvue
   - 小程序自定义组件
+- 迁移过程
+  - 工程文件配置的迁移，使用脚本做拷贝和替换
+  - uniapp 子组件不支持小程序页面生命周期问题
+    - mpvue 组件中使用 onload 和 onshow 会调用，但在 uniapp 中不会触发
+    - 解决方案为在 uniapp 全局加一个 mixin ，在 mounted 时让 onload 和 onshow 挂载到 this.$root.$options 上，并且先执行一次；在 beforeDestroy 时进行卸载
 
 ### 资料
 
@@ -251,3 +257,63 @@
 ### 资料
 
 - [webpack Loader 执行机制解析](https://juejin.cn/post/7238814783597953080)
+
+## compiler-sfc
+
+- 编译原理
+- compilerScript
+  - setup 写法会做转换，将 const 和 function 定义的内容进行返回，能让 template 中能取到这些变量
+- compilerTemplate
+  - 靶向更新
+  - 标记动态节点比如 v-if {{}} v-for 语法的内容，目的是让在 diff 的时候能更快，提升性能
+- compilerStyles
+  - 可能存在多个
+  - 处理 scoped
+
+## 组件库
+
+- monorepo
+- pnpm
+- bem
+- sass 语法
+  - @use
+- vue 插件
+  - 提供 install 方法，参数能拿到 app 实例
+  - app.component 全局注册组件
+- vue setup 语法
+- icon 组件实现
+- tree 组件实现
+  - 虚拟滚动
+    - 拍平展示；递归嵌套实现不了
+    - 树的先序遍历，深度遍历所有子节点做拍平并渲染
+    - 定高
+      - 只渲染 3 屏数据，在滚动时对数据做裁剪
+    - 不定高
+      - 同定高
+      - 先默认给个高度，用一个 list 存储每个节点的 top 和 bottom 值
+      - 然后在滚动时去实时获取每个节点的高度，去及时修正 top 和 bottom
+      - 使用二分查找找到当前 scrollTop 所对应的元素下标（大概率是不相等，需要用一个 temp 记住最接近的下标）
+  - 异步加载
+    - 展开的时候拿到当前目标
+    - 用户传参 onLoad 为 Promise resolve 时将数据传给 tree 内部进行处理
+    - 内部将 onLoad 的数据挂载到当前 node 的 children 下
+  - 选中节点
+    - 可选多选
+  - 禁用节点
+    - disabled 传参
+  - 自定义节点
+    - 组件通信 provide inject 实现
+    - slots.default() 插槽实现
+    - slot 在渲染时使用 tsx 的方式写
+  - 支持复选
+    - 全选中
+    - 中间状态
+
+## vite
+
+- es module
+- hmr
+
+### 资料
+
+- [Vite 4.3 为何性能爆表？](https://mp.weixin.qq.com/s/HXwzQMyYRJN0ttzUPcr9fA)
