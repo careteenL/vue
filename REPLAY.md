@@ -308,6 +308,22 @@
   - 支持复选
     - 全选中
     - 中间状态
+- button 组件实现
+- input 组件实现
+- form form-item 组件实现
+  - 和 input 组件关联
+  - 组件通信 provide inject
+  - async-validator 校验表单
+- upload 组件实现
+  - 包装文件对象
+  - 使用原生 xhr 进度条
+  - 使用dragover dragleave drop 实现拖拽文件上传
+- calendar 组件实现
+  - dayjs
+  - 自定义插槽
+- TODO
+  - provide inject 实现
+  - PropType ExtractPropTypes ts 实现
 
 ## vite
 
